@@ -1,0 +1,56 @@
+schema: '2.0'
+stages:
+  evaluate:
+    cmd: python -m scripts.run_experiment --run-name dvc_repro
+    deps:
+    - path: data/eval/questions.yaml
+      hash: md5
+      md5: 8d8164838c3b072d24a16d7709929756
+      size: 3917
+    - path: data/raw
+      hash: md5
+      md5: fe76dfa8880d5c07fbe73384d2c1e934.dir
+      size: 3229
+      nfiles: 3
+    - path: prompts/rag_system.txt
+      hash: md5
+      md5: 31a7f53727699bbf93b9f6dd002bc1f8
+      size: 482
+    - path: scripts/run_experiment.py
+      hash: md5
+      md5: 4849528482ef31ca0b9991e2fd36f955
+      size: 3703
+    - path: src
+      hash: md5
+      md5: 7e98235c930820b302a243ea8d4c2433.dir
+      size: 41366
+      nfiles: 18
+    params:
+      params.yaml:
+        chunking:
+          chunk_size: 400
+          chunk_overlap: 60
+        embedding:
+          provider: sentence-transformers
+          model_name: 
+            sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+        llm:
+          provider: extractive
+          model: openai/gpt-oss-20b
+          temperature: 0.0
+        retrieval:
+          top_k: 3
+          min_score: 0.3
+    outs:
+    - path: reports/details.json
+      hash: md5
+      md5: 6092461a8b7d4cfca6c17948920dff41
+      size: 14164
+    - path: reports/failures.json
+      hash: md5
+      md5: cec559cc024494e8b6d53ea0c4fa189e
+      size: 3947
+    - path: reports/metrics.json
+      hash: md5
+      md5: 71d6fd2f0998fc84adff65e54c2fa60e
+      size: 331
