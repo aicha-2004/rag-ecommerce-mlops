@@ -1,0 +1,8 @@
+-r requirements-core.txt
+sentence-transformers>=3.0
+groq>=0.11
+mlflow>=3.1,<4.0
+dvc>=3.50
+matplotlib>=3.8
+pandas>=2.0
+tabulate>=0.9

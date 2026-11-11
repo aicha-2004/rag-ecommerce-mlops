@@ -1,0 +1,22 @@
+stages:
+  evaluate:
+    cmd: python -m scripts.run_experiment --run-name dvc_repro
+    deps:
+      - data/raw
+      - data/eval/questions.yaml
+      - prompts/rag_system.txt
+      - src
+      - scripts/run_experiment.py
+    params:
+      - chunking
+      - embedding
+      - retrieval
+      - llm
+    outs:
+      - reports/details.json:
+          cache: false
+      - reports/failures.json:
+          cache: false
+    metrics:
+      - reports/metrics.json:
+          cache: false
