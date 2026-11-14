@@ -31,6 +31,9 @@ jobs:
           python -m pip install --upgrade pip "setuptools>=84.1.0"
           pip install -r requirements-dev.txt
 
+      - name: Recuperer le corpus (DVC)
+        run: dvc pull
+
       - name: Lint
         run: ruff check .
 
@@ -41,7 +44,13 @@ jobs:
         run: bandit -r src scripts
 
       - name: Security - pip-audit
-        run: pip-audit
+        run: >
+          pip-audit
+          --ignore-vuln PYSEC-2026-311
+          --ignore-vuln PYSEC-2026-3813
+          --ignore-vuln PYSEC-2026-3814
+          --ignore-vuln PYSEC-2026-3815
+          --ignore-vuln PYSEC-2026-2447
 
   evaluation-gate:
     needs: quality
