@@ -3,9 +3,10 @@ import pytest
 from src.llm import ExtractiveLLM, GroqLLM, get_llm, load_system_prompt
 
 
-def test_extractive_llm_returns_best_passage():
+def test_extractive_llm_returns_all_retrieved_passages():
     hits = [{"text": "meilleur passage"}, {"text": "autre"}]
-    assert ExtractiveLLM().generate("question", hits) == "meilleur passage"
+    out = ExtractiveLLM().generate("question", hits)
+    assert out.startswith("meilleur passage") and "autre" in out
 
 
 def test_default_provider_is_extractive(params, monkeypatch):

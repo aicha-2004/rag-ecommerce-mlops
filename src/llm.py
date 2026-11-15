@@ -10,12 +10,17 @@ def load_system_prompt() -> str:
 
 
 class ExtractiveLLM:
-    """Renvoie le meilleur passage tel quel. Deterministe : sert a la CI et aux tests."""
+    """Renvoie tous les passages recuperes, sans les reformuler. Deterministe : sert a la CI.
+
+    C'est exactement le contexte que verrait un vrai LLM. En mode extractif, `answer_accuracy`
+    mesure donc « le fait attendu figure-t-il dans le contexte recupere ? » (borne haute de la
+    generation). La qualite reelle des reponses se mesure avec Groq.
+    """
 
     name = "extractive"
 
     def generate(self, question, hits):
-        return hits[0]["text"]
+        return "\n\n".join(h["text"] for h in hits)
 
 
 class GroqLLM:
