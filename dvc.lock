@@ -18,18 +18,19 @@ stages:
       size: 482
     - path: scripts/run_experiment.py
       hash: md5
-      md5: 4849528482ef31ca0b9991e2fd36f955
-      size: 3703
+      md5: 8df0ed4051a0350b93f16401744a12b7
+      size: 3853
     - path: src
       hash: md5
-      md5: 7e98235c930820b302a243ea8d4c2433.dir
-      size: 41366
+      md5: a9a04c603539a66d3c09b212ad266aa9.dir
+      size: 47391
       nfiles: 18
     params:
       params.yaml:
         chunking:
           chunk_size: 400
           chunk_overlap: 60
+          strategy: section
         embedding:
           provider: sentence-transformers
           model_name: 
@@ -40,17 +41,17 @@ stages:
           temperature: 0.0
         retrieval:
           top_k: 3
-          min_score: 0.3
+          min_score: 0.26
     outs:
     - path: reports/details.json
       hash: md5
-      md5: 6092461a8b7d4cfca6c17948920dff41
-      size: 14164
+      md5: 255464920b39f8b1a8eea5b213b654d4
+      size: 24691
     - path: reports/failures.json
       hash: md5
-      md5: cec559cc024494e8b6d53ea0c4fa189e
-      size: 3947
+      md5: a03fd8d5a93b8c8173f2775b1ef7ac24
+      size: 6370
     - path: reports/metrics.json
       hash: md5
-      md5: 71d6fd2f0998fc84adff65e54c2fa60e
-      size: 331
+      md5: 9e7ed907ef4c87611c441728fbfdf6ce
+      size: 302

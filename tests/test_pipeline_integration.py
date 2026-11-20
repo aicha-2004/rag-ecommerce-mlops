@@ -8,7 +8,7 @@ from src.llm import ExtractiveLLM
 from src.rag import RAGPipeline
 
 QUESTIONS = yaml.safe_load((ROOT / "data" / "eval" / "questions.yaml").read_text(encoding="utf-8"))
-HASHING_MIN_SCORE = 0.15  # seuil propre a l'embedder de test
+HASHING_MIN_SCORE = 0.20  # seuil propre a l'embedder de test
 
 
 def _pipeline(retriever):

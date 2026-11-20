@@ -43,13 +43,14 @@ def main(argv=None):
     ap.add_argument("--run-name", default="run")
     ap.add_argument("--chunk-size", type=int, default=p["chunking"]["chunk_size"])
     ap.add_argument("--overlap", type=int, default=p["chunking"]["chunk_overlap"])
+    ap.add_argument("--strategy", choices=["section", "fixed"], default=p["chunking"]["strategy"])
     ap.add_argument("--embedding", default=p["embedding"]["model_name"])
     ap.add_argument("--provider", default=p["embedding"]["provider"])
     ap.add_argument("--top-k", type=int, default=p["retrieval"]["top_k"])
     ap.add_argument("--min-score", type=float, default=p["retrieval"]["min_score"])
     a = ap.parse_args(argv)
 
-    p["chunking"].update(chunk_size=a.chunk_size, chunk_overlap=a.overlap)
+    p["chunking"].update(chunk_size=a.chunk_size, chunk_overlap=a.overlap, strategy=a.strategy)
     p["embedding"].update(model_name=a.embedding, provider=a.provider)
     p["retrieval"].update(top_k=a.top_k, min_score=a.min_score)
 
@@ -74,7 +75,7 @@ def main(argv=None):
     llm_name = pipeline.llm.name
     with mlflow.start_run(run_name=a.run_name):
         mlflow.log_params({
-            "chunk_size": a.chunk_size, "chunk_overlap": a.overlap,
+            "chunk_size": a.chunk_size, "chunk_overlap": a.overlap, "chunk_strategy": a.strategy,
             "embedding_provider": a.provider, "embedding_model": a.embedding,
             "top_k": a.top_k, "min_score": a.min_score,
             "llm_provider": llm_name, "llm_model": p["llm"]["model"],

@@ -15,7 +15,9 @@ def params():
 def built_index(tmp_path_factory, params):
     """Index reel du corpus ShopMed, avec l'embedder 'hashing' (rapide, sans telechargement)."""
     cfg = params["chunking"]
-    chunks = build_chunks(ROOT / params["data"]["raw_dir"], cfg["chunk_size"], cfg["chunk_overlap"])
+    chunks = build_chunks(
+        ROOT / params["data"]["raw_dir"], cfg["chunk_size"], cfg["chunk_overlap"], cfg["strategy"]
+    )
     embedder = HashingEmbedder()
     index_dir = tmp_path_factory.mktemp("index")
     build_index(chunks, embedder, index_dir)

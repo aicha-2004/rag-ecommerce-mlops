@@ -15,7 +15,10 @@ def prepare(params, index_dir=None):
     load_dotenv()
     index_dir = index_dir or ROOT / "artifacts" / "index"
     cfg = params["chunking"]
-    chunks = build_chunks(ROOT / params["data"]["raw_dir"], cfg["chunk_size"], cfg["chunk_overlap"])
+    chunks = build_chunks(
+        ROOT / params["data"]["raw_dir"], cfg["chunk_size"], cfg["chunk_overlap"],
+        cfg.get("strategy", "section"),
+    )
     embedder = get_embedder(params)
     build_index(chunks, embedder, index_dir)
     return chunks, embedder, index_dir

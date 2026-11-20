@@ -5,6 +5,7 @@ data:
 chunking:
   chunk_size: 400
   chunk_overlap: 60
+  strategy: section
 
 embedding:
   # "sentence-transformers" (reel) ou "hashing" (rapide, sans telechargement : tests)
@@ -13,7 +14,7 @@ embedding:
 
 retrieval:
   top_k: 3
-  min_score: 0.225
+  min_score: 0.26
 
 llm:
   # "extractive" (sans API, deterministe) ou "groq"

@@ -10,7 +10,7 @@ import mlflow
 from src.config import ROOT
 
 COLS = {
-    "tags.mlflow.runName": "run", "params.chunk_size": "chunk_size",
+    "tags.mlflow.runName": "run", "params.chunk_strategy": "strategie", "params.chunk_size": "chunk_size",
     "params.embedding_model": "embedding", "params.top_k": "top_k",
     "params.min_score": "min_score", "metrics.recall_at_k": "recall@k",
     "metrics.answer_accuracy": "accuracy", "metrics.faithfulness": "faithfulness",
