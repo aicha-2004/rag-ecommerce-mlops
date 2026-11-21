@@ -1,36 +1,31 @@
 # System card : assistant RAG ShopMed
 
-## Usage prevu
-Repondre aux questions de clients sur la commande, le paiement, la livraison et les retours,
-a partir de la documentation ShopMed uniquement.
+## Usage prévu
+Répondre aux questions de clients sur la commande, le paiement, la livraison et les retours, à partir de la documentation ShopMed uniquement.
 
 ## Hors usage
-Conseil juridique ou medical, questions generales, toute information absente de la documentation.
+Conseil juridique ou médical, questions générales, toute information absente de la documentation.
 
 ## Version
-Commit Git : A COMPLETER. Tag du corpus : A COMPLETER. Run MLflow : A COMPLETER.
+Commit Git : 0389530. Tag du corpus : corpus-v1. Run MLflow de référence : groq_section (c6f339ad152143659b3f650bb8dc8a7b).
 
-## Donnees
-3 documents Markdown fictifs (faq, politique de retour, guide de livraison), versionnes avec DVC.
-Jeu d'evaluation : 28 questions (17 valides, 5 hors perimetre, 3 injections, 3 documents insuffisants).
+## Données
+3 documents Markdown fictifs (faq, politique de retour, guide de livraison), versionnés avec DVC. Jeu d'évaluation : 28 questions (17 valides, 5 hors périmètre, 3 injections, 3 documentation insuffisante).
 
-## Methode
-Decoupage en chunks avec metadonnees, embeddings multilingues, index Chroma (cosinus),
-refus si le meilleur score est sous `min_score`, generation par LLM contraint par le contexte.
+## Méthode
+Découpage par section avec métadonnées, embeddings multilingues (paraphrase-multilingual-MiniLM-L12-v2), index Chroma (cosinus), refus si le meilleur score est sous `min_score`, génération par LLM (Groq) contraint par le contexte.
 
-## Parametres retenus
-chunk_size = A COMPLETER ; chunk_overlap = A COMPLETER ; top_k = A COMPLETER ; min_score = A COMPLETER
+## Paramètres retenus
+chunk_size = 400 ; chunk_overlap = 60 ; stratégie = section ; top_k = 3 ; min_score = 0,26
 
-## Metriques (jeu d'evaluation)
-Recall@k = A COMPLETER ; exactitude = A COMPLETER ; fidelite (proxy) = A COMPLETER ;
-refus hors perimetre = A COMPLETER
+## Métriques (run groq_section)
+Recall@3 = 1,00 ; MRR = 0,97 ; exactitude stricte par mots-clés = 0,65 ; fidélité (proxy lexical) = 0,74 ; refus des questions hors périmètre, injections et documentation insuffisante = 1,00 ; faux refus = 0,00.
 
 ## Quality gates
-Seuils dans `params.yaml` (`quality_gate`), verifies par `scripts/check_gates.py` en CI.
+Seuils dans `params.yaml`, vérifiés par `scripts/check_gates.py` en CI (mode extractif : mesure du retrieval, pas du LLM).
 
 ## Limites connues
-Corpus minuscule ; fidelite mesuree par proxy lexical ; detection d'injection par regex ;
-le mode extractif de la CI ne mesure pas la qualite du LLM.
+Corpus minuscule et fictif ; seuil et découpage réglés sur le jeu d'évaluation (résultats optimistes) ; fidélité mesurée par proxy lexical ; détection d'injection par regex ; deux erreurs identifiées avec Groq (délai de 48 h omis, tarif de livraison absent du contexte récupéré).
 
 ## Gouvernance
 Approbation humaine avant production (environnement GitHub `production`). Voir `docs/risques.md`.

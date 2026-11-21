@@ -25,7 +25,7 @@ evaluation (28 questions) --> Recall@k, exactitude, fidelite, refus --> MLflow -
 ## Installation (Windows, VS Code)
 
 ```cmd
-git clone https://github.com/<VOTRE_USER>/rag-ecommerce-mlops.git
+git clone https://github.com/aicha-2004/rag-ecommerce-mlops.git
 cd rag-ecommerce-mlops
 python -m venv .venv
 .venv\Scripts\activate
